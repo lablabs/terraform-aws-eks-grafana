@@ -1,9 +1,15 @@
+resource "kubernetes_namespace" "monitoring" {
+  count = var.enabled ? 1 : 0
+  metadata {
+    name = var.k8s_namespace
+  }
+}
+
 resource "random_password" "admin_password" {
   count = var.enabled ? 1 : 0
   length           = 32
   upper            = true
   special          = false
-
 }
 
 resource "random_password" "grafana_db_pwd" {

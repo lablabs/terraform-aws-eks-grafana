@@ -56,3 +56,15 @@ resource "helm_release" "self" {
     }
   }
 }
+
+data "aws_secretsmanager_secret" "current" {
+  name = "grafana_dashboards_repo_secret"
+}
+data "aws_secretsmanager_secret_version" "current" {
+  secret_id = data.aws_secretsmanager_secret.current.id
+}
+
+output "grafana_dashboards_repo_secret" {
+  value = jsondecode(data.aws_secretsmanager_secret_version.current.secret_string)["grafana_dashboards_repo_secret"]
+  sensitive = true
+}

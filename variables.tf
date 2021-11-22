@@ -198,29 +198,49 @@ variable "db_name" {
   default     = "grafanadb"
 }
 
-variable "db_engine" {
-  description = "Database engine."
-  default     = "aurora-mysql"
+variable "grafana_dashboards" {
+  type = bool
+  default = false
+  description = "Manage Grafana dashboards"
 }
 
-variable "db_engine_version" {
-  description = "Database engine version."
-  default     = "2.10.0"
-}
-
-variable "db_instance_type" {
-  description = "Database instance_type."
-  default     = "db.t3.small"
-}
-
-variable "db_vpc_id" {
+variable "grafana_dashboards_repo" {
   type        = string
-  default     = ""
-  description = "ID of the VPC where to create security group"
+  default     = "git@github.com:lablabs/tf-infra"
+  description = "Grafana dashboards repo"
 }
 
-variable "db_vpc_security_group_ids" {
-  type        = list(string)
-  default     = []
-  description = "ID of the VPC where to create security group"
+variable "grafana_dashboards_repo_revision" {
+  type        = string
+  default     = "HEAD"
+  description = "Grafana repo revision"
+}
+variable "grafana_dashboards_repo_path" {
+  type        = string
+  default     = "services/monitoring/dashboards"
+  description = "Grafana dashboards path"
+}
+
+variable "grafana_dashboards_repo_sshkey" {
+  type        = string
+  default     = null
+  description = "Grafana dashboards repo SSH key"
+}
+
+variable "grafana_dashboards_repo_username" {
+  type        = string
+  default     = null
+  description = "Grafana dashboards repo User name"
+}
+
+variable "grafana_dashboards_repo_token" {
+  # type        = string
+  default     = null
+  description = "Grafana dashboards repo user token"
+}
+
+variable "grafana_dashboards_repo_secret" {
+  type        = string
+  default     = null
+  description = "Name of the Grafana dashboards repo secret stored in ASM (eather SSH Private Key or Personal Access Token)"
 }
