@@ -1,4 +1,4 @@
-# Grafana Terraform modul
+# Grafana Terraform module
 
 [![labyrinth labs logo](ll-logo.png)](https://lablabs.io/)
 
