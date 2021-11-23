@@ -12,13 +12,6 @@ resource "random_password" "admin_password" {
   special = false
 }
 
-# resource "random_password" "grafana_db_pwd" {
-#   count   = var.enabled ? 1 : 0
-#   length  = 32
-#   upper   = true
-#   special = false
-# }
-
 resource "kubernetes_secret" "grafana_secrets" {
   count = var.enabled ? 1 : 0
   type  = "Opaque"
