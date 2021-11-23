@@ -76,16 +76,16 @@ resource "kubernetes_manifest" "dashboards" {
     "spec" = {
       "project" = var.argo_project
       "source" = {
-        "repoURL" = var.grafana_dashboards_repo
+        "repoURL"        = var.grafana_dashboards_repo
         "targetRevision" = var.grafana_dashboards_repo_revision
-        "path" = var.grafana_dashboards_repo_path
+        "path"           = var.grafana_dashboards_repo_path
       }
       "destination" = {
-        "server" = var.argo_destionation_server
+        "server"    = var.argo_destionation_server
         "namespace" = var.k8s_namespace
       }
       "syncPolicy" = var.argo_sync_policy
-      "info" = var.argo_info
+      "info"       = var.argo_info
     }
   }
 }
@@ -99,5 +99,5 @@ resource "kubernetes_secret" "dashboards_repo" {
       "argocd.argoproj.io/secret-type" = "repository"
     }
   }
-   data = var.grafana_dashboards_repo_sshkey != null ? local.repo_credentials_ssh : local.repo_credentials_token
+  data = var.grafana_dashboards_repo_sshkey != null ? local.repo_credentials_ssh : local.repo_credentials_token
 }

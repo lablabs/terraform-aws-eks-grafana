@@ -184,23 +184,23 @@ variable "grafana_replicas" {
 variable "grafana_admin_user" {
   type        = string
   default     = "admin"
-  description = "Grafana admin user name"
+  description = "Grafana Admin user name"
 }
 
 # Aurora variables
 variable "db_admin_username" {
-  description = "RDS User name"
+  description = "Database Admin user name"
   default     = "admin"
 }
 
 variable "db_name" {
-  description = "Database name."
+  description = "Database name"
   default     = "grafanadb"
 }
 
 variable "grafana_dashboards" {
-  type = bool
-  default = false
+  type        = bool
+  default     = false
   description = "Manage Grafana dashboards"
 }
 
@@ -218,29 +218,29 @@ variable "grafana_dashboards_repo_revision" {
 variable "grafana_dashboards_repo_path" {
   type        = string
   default     = "services/monitoring/dashboards"
-  description = "Grafana dashboards path"
+  description = "Grafana Dashboards path"
 }
 
 variable "grafana_dashboards_repo_sshkey" {
   type        = string
   default     = null
-  description = "Grafana dashboards repo SSH key"
+  description = "Grafana Dashboards repo SSH key"
 }
 
 variable "grafana_dashboards_repo_username" {
   type        = string
   default     = null
-  description = "Grafana dashboards repo User name"
+  description = "Grafana Dashboards repo User name"
 }
 
 variable "grafana_dashboards_repo_token" {
   # type        = string
   default     = null
-  description = "Grafana dashboards repo user token"
+  description = "Grafana Dashboards repo user token"
 }
 
 variable "grafana_dashboards_repo_secret" {
   type        = string
   default     = null
-  description = "Name of the Grafana dashboards repo secret stored in ASM (eather SSH Private Key or Personal Access Token)"
+  description = "Name of the Grafana Dashboards repo secret stored in ASM (eather SSH Private Key or Personal Access Token)"
 }

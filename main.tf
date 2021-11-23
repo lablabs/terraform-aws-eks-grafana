@@ -18,12 +18,12 @@ locals {
       "mountPath" : "/etc/secrets/auth_generic_oauth"
       "readOnly" : "true"
     }]
-    "grafana.ini": {
-      "security": {
-        "admin_user": "admin"
-        "admin_password": "$__file{/etc/secrets/auth_generic_oauth/admin-password}"
+    "grafana.ini" : {
+      "security" : {
+        "admin_user" : "admin"
+        "admin_password" : "$__file{/etc/secrets/auth_generic_oauth/admin-password}"
       }
-  }
+    }
   })
 }
 
@@ -65,6 +65,6 @@ data "aws_secretsmanager_secret_version" "current" {
 }
 
 output "grafana_dashboards_repo_secret" {
-  value = jsondecode(data.aws_secretsmanager_secret_version.current.secret_string)["grafana_dashboards_repo_secret"]
+  value     = jsondecode(data.aws_secretsmanager_secret_version.current.secret_string)["grafana_dashboards_repo_secret"]
   sensitive = true
 }
