@@ -76,10 +76,11 @@ No modules.
 | [kubernetes_secret.dashboards_repo](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/secret) | resource |
 | [kubernetes_secret.grafana_secrets](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/secret) | resource |
 | [random_password.admin_password](https://registry.terraform.io/providers/hashicorp/random/latest/docs/resources/password) | resource |
-| [random_password.grafana_db_pwd](https://registry.terraform.io/providers/hashicorp/random/latest/docs/resources/password) | resource |
 | [aws_iam_policy_document.grafana_irsa](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
-| [aws_secretsmanager_secret.current](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/secretsmanager_secret) | data source |
-| [aws_secretsmanager_secret_version.current](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/secretsmanager_secret_version) | data source |
+| [aws_secretsmanager_secret.dashboards_repo](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/secretsmanager_secret) | data source |
+| [aws_secretsmanager_secret.database](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/secretsmanager_secret) | data source |
+| [aws_secretsmanager_secret_version.dashboards_repo](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/secretsmanager_secret_version) | data source |
+| [aws_secretsmanager_secret_version.database](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/secretsmanager_secret_version) | data source |
 | [utils_deep_merge_yaml.argo_application_values](https://registry.terraform.io/providers/cloudposse/utils/latest/docs/data-sources/deep_merge_yaml) | data source |
 | [utils_deep_merge_yaml.values](https://registry.terraform.io/providers/cloudposse/utils/latest/docs/data-sources/deep_merge_yaml) | data source |
 
@@ -105,10 +106,11 @@ No modules.
 | <a name="input_grafana_dashboards_repo"></a> [grafana\_dashboards\_repo](#input\_grafana\_dashboards\_repo) | Grafana dashboards repo | `string` | `"git@github.com:lablabs/tf-infra"` | no |
 | <a name="input_grafana_dashboards_repo_path"></a> [grafana\_dashboards\_repo\_path](#input\_grafana\_dashboards\_repo\_path) | Grafana Dashboards path | `string` | `"services/monitoring/dashboards"` | no |
 | <a name="input_grafana_dashboards_repo_revision"></a> [grafana\_dashboards\_repo\_revision](#input\_grafana\_dashboards\_repo\_revision) | Grafana repo revision | `string` | `"HEAD"` | no |
-| <a name="input_grafana_dashboards_repo_secret"></a> [grafana\_dashboards\_repo\_secret](#input\_grafana\_dashboards\_repo\_secret) | Name of the Grafana Dashboards repo secret stored in ASM (eather SSH Private Key or Personal Access Token) | `string` | `null` | no |
-| <a name="input_grafana_dashboards_repo_sshkey"></a> [grafana\_dashboards\_repo\_sshkey](#input\_grafana\_dashboards\_repo\_sshkey) | Grafana Dashboards repo SSH key | `string` | `null` | no |
-| <a name="input_grafana_dashboards_repo_token"></a> [grafana\_dashboards\_repo\_token](#input\_grafana\_dashboards\_repo\_token) | Grafana Dashboards repo user token | `any` | `null` | no |
+| <a name="input_grafana_dashboards_repo_secret"></a> [grafana\_dashboards\_repo\_secret](#input\_grafana\_dashboards\_repo\_secret) | Name of the Dashboards repo (ASM secret). It can be eather SSH Private Key or Personal Access Token. | `string` | `"grafana_dashboards_repo_secret"` | no |
+| <a name="input_grafana_dashboards_repo_sshkey"></a> [grafana\_dashboards\_repo\_sshkey](#input\_grafana\_dashboards\_repo\_sshkey) | Grafana Dashboards repo SSH key (If both, SSH Key and user the Token/Password are set, the SSH Key has priority and will be used) | `string` | `null` | no |
+| <a name="input_grafana_dashboards_repo_token"></a> [grafana\_dashboards\_repo\_token](#input\_grafana\_dashboards\_repo\_token) | Grafana Dashboards repo user token/password (If both, SSH Key and user the Token/Password are set, the SSH Key has priority and will be used) | `string` | `null` | no |
 | <a name="input_grafana_dashboards_repo_username"></a> [grafana\_dashboards\_repo\_username](#input\_grafana\_dashboards\_repo\_username) | Grafana Dashboards repo User name | `string` | `null` | no |
+| <a name="input_grafana_database_secret"></a> [grafana\_database\_secret](#input\_grafana\_database\_secret) | Name of the Grafana Database (ASM secret) | `string` | `null` | no |
 | <a name="input_grafana_release"></a> [grafana\_release](#input\_grafana\_release) | Grafana release version | `string` | `"8.2.3"` | no |
 | <a name="input_grafana_replicas"></a> [grafana\_replicas](#input\_grafana\_replicas) | Number of Grafana replicas | `string` | `"1"` | no |
 | <a name="input_helm_atomic"></a> [helm\_atomic](#input\_helm\_atomic) | If set, installation process purges chart on fail. The wait flag will be set automatically if atomic is used. Defaults to false. | `bool` | `false` | no |
@@ -133,8 +135,13 @@ No modules.
 
 | Name | Description |
 |------|-------------|
-| <a name="output_grafana_dashboards_repo_secret"></a> [grafana\_dashboards\_repo\_secret](#output\_grafana\_dashboards\_repo\_secret) | n/a |
+| <a name="output_grafana_dashboards_repo_secret"></a> [grafana\_dashboards\_repo\_secret](#output\_grafana\_dashboards\_repo\_secret) | Secret to Grafana Dashboards repository |
+| <a name="output_grafana_database_secret"></a> [grafana\_database\_secret](#output\_grafana\_database\_secret) | Secret to Grafana Database |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
+
+## Secrets
+
+The Module is able read the secret for Grafana Database and for the Grafana Dashboards private repository from the AWS Secrets manager (ASM). With variables `grafana_dashboards_repo_secret` and `grafana_database_secret` you can specify the name of ASM secret.
 
 ## Contributing and reporting issues
 

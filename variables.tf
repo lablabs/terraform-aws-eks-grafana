@@ -193,6 +193,12 @@ variable "db_admin_username" {
   default     = "admin"
 }
 
+variable "grafana_database_secret" {
+  type        = string
+  description = "Name of the Grafana Database (ASM secret)"
+  default     = null
+}
+
 variable "db_name" {
   description = "Database name"
   default     = "grafanadb"
@@ -224,7 +230,7 @@ variable "grafana_dashboards_repo_path" {
 variable "grafana_dashboards_repo_sshkey" {
   type        = string
   default     = null
-  description = "Grafana Dashboards repo SSH key"
+  description = "Grafana Dashboards repo SSH key (If both, SSH Key and user the Token/Password are set, the SSH Key has priority and will be used)"
 }
 
 variable "grafana_dashboards_repo_username" {
@@ -234,13 +240,13 @@ variable "grafana_dashboards_repo_username" {
 }
 
 variable "grafana_dashboards_repo_token" {
-  # type        = string
+  type        = string
   default     = null
-  description = "Grafana Dashboards repo user token"
+  description = "Grafana Dashboards repo user token/password (If both, SSH Key and user the Token/Password are set, the SSH Key has priority and will be used)"
 }
 
 variable "grafana_dashboards_repo_secret" {
   type        = string
-  default     = null
-  description = "Name of the Grafana Dashboards repo secret stored in ASM (eather SSH Private Key or Personal Access Token)"
+  default     = "grafana_dashboards_repo_secret"
+  description = "Name of the Dashboards repo (ASM secret). It can be eather SSH Private Key or Personal Access Token."
 }
