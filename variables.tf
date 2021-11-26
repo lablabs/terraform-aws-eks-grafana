@@ -76,7 +76,7 @@ variable "helm_atomic" {
 
 variable "k8s_namespace" {
   type        = string
-  default     = "monitoring"
+  default     = "grafana"
   description = "The K8s namespace in which the ingress-nginx has been created"
 }
 
