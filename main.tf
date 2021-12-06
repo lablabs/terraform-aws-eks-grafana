@@ -7,13 +7,12 @@ locals {
     "image" : {
       "tag" : var.grafana_release
     }
-    "replicas" : var.grafana_replicas
     "admin" : {
-      "existingSecret" : "grafana-secrets"
+      "existingSecret" : "${var.helm_chart_name}-${var.helm_release_name}-admin-login"
     }
     "extraSecretMounts" : [{
       "name" : "grafana-secrets-mount"
-      "secretName" : "grafana-secrets"
+      "secretName" : "${var.helm_chart_name}-${var.helm_release_name}-admin-login"
       "defaultMode" : "0440"
       "mountPath" : "/etc/secrets/auth_generic_oauth"
       "readOnly" : "true"
@@ -35,7 +34,7 @@ data "utils_deep_merge_yaml" "values" {
   ])
 }
 
-resource "helm_release" "self" {
+resource "helm_release" "this" {
   count            = var.enabled && !var.argo_application_enabled ? 1 : 0
   repository       = var.helm_repo_url
   chart            = var.helm_chart_name

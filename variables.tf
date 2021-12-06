@@ -99,9 +99,9 @@ variable "k8s_irsa_role_name_prefix" {
 }
 
 variable "k8s_irsa_additional_policies" {
-  type        = list(string)
-  default     = []
-  description = "Additional policies arn to be attached to created k8s_role"
+  type        = map(string)
+  default     = {}
+  description = "Map of the additional policies to be attached to default role. Where key is arbiraty id and value is policy arn."
 }
 
 variable "k8s_role_arn" {
@@ -119,6 +119,18 @@ variable "values" {
   type        = string
   default     = ""
   description = "Additional yaml encoded values which will be passed to the Helm chart."
+}
+
+variable "grafana_release" {
+  type        = string
+  default     = "8.2.3"
+  description = "Grafana release version"
+}
+
+variable "grafana_admin_user" {
+  type        = string
+  default     = "admin"
+  description = "Grafana Admin user name"
 }
 
 variable "argo_application_enabled" {
@@ -167,86 +179,4 @@ variable "argo_namespace" {
   type        = string
   default     = "argo"
   description = "Namespace to deploy ArgoCD application CRD to"
-}
-
-variable "grafana_release" {
-  type        = string
-  default     = "8.2.3"
-  description = "Grafana release version"
-}
-
-variable "grafana_replicas" {
-  type        = string
-  default     = "1"
-  description = "Number of Grafana replicas"
-}
-
-variable "grafana_admin_user" {
-  type        = string
-  default     = "admin"
-  description = "Grafana Admin user name"
-}
-
-# Aurora variables
-variable "db_admin_username" {
-  description = "Database Admin user name"
-  default     = "admin"
-}
-
-variable "grafana_database_secret" {
-  type        = string
-  description = "Name of the Grafana Database (ASM secret)"
-  default     = null
-}
-
-variable "db_name" {
-  description = "Database name"
-  default     = "grafanadb"
-}
-
-variable "grafana_dashboards" {
-  type        = bool
-  default     = false
-  description = "Manage Grafana dashboards"
-}
-
-variable "grafana_dashboards_repo" {
-  type        = string
-  default     = "git@github.com:lablabs/tf-infra"
-  description = "Grafana dashboards repo"
-}
-
-variable "grafana_dashboards_repo_revision" {
-  type        = string
-  default     = "HEAD"
-  description = "Grafana repo revision"
-}
-variable "grafana_dashboards_repo_path" {
-  type        = string
-  default     = "services/monitoring/dashboards"
-  description = "Grafana Dashboards path"
-}
-
-variable "grafana_dashboards_repo_sshkey" {
-  type        = string
-  default     = null
-  description = "Grafana Dashboards repo SSH key (If both, SSH Key and user the Token/Password are set, the SSH Key has priority and will be used)"
-}
-
-variable "grafana_dashboards_repo_username" {
-  type        = string
-  default     = null
-  description = "Grafana Dashboards repo User name"
-}
-
-variable "grafana_dashboards_repo_token" {
-  type        = string
-  default     = null
-  description = "Grafana Dashboards repo user token/password (If both, SSH Key and user the Token/Password are set, the SSH Key has priority and will be used)"
-}
-
-variable "grafana_dashboards_repo_secret" {
-  type        = string
-  default     = "grafana_dashboards_repo_secret"
-  description = "Name of the Dashboards repo (ASM secret). It can be eather SSH Private Key or Personal Access Token."
 }
