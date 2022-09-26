@@ -48,30 +48,6 @@ variable "helm_repo_url" {
   description = "Helm repository"
 }
 
-variable "helm_wait" {
-  type        = bool
-  default     = true
-  description = "Will wait until all resources are in a ready state before marking the release as successful. It will wait for as long as timeout. Defaults to true."
-}
-
-variable "helm_timeout" {
-  type        = number
-  default     = 300
-  description = "Time in seconds to wait for any individual kubernetes operation (like Jobs for hooks). Defaults to 300 seconds."
-}
-
-variable "helm_cleanup_on_fail" {
-  type        = bool
-  default     = false
-  description = "Allow deletion of new resources created in this upgrade when upgrade fails. Defaults to false."
-}
-
-variable "helm_atomic" {
-  type        = bool
-  default     = false
-  description = "If set, installation process purges chart on fail. The wait flag will be set automatically if atomic is used. Defaults to false."
-}
-
 # K8s
 
 variable "k8s_namespace" {
@@ -105,6 +81,7 @@ variable "k8s_irsa_additional_policies" {
 }
 
 variable "k8s_role_arn" {
+  type        = string
   default     = ""
   description = "Whether to create and use default role or use existing role. Useful for a variety of use cases, such as cross account access. Default (empty string) use default generted role."
 }
@@ -146,6 +123,7 @@ variable "argo_application_use_helm" {
 }
 
 variable "argo_application_values" {
+  type        = string
   default     = ""
   description = "Value overrides to use when deploying argo application object with helm"
 }
@@ -163,6 +141,10 @@ variable "argo_project" {
 }
 
 variable "argo_info" {
+  type = list(object({
+    name  = string
+    value = string
+  }))
   default = [{
     "name"  = "terraform"
     "value" = "true"
@@ -171,6 +153,7 @@ variable "argo_info" {
 }
 
 variable "argo_sync_policy" {
+  type        = any
   description = "ArgoCD syncPolicy manifest parameter"
   default     = {}
 }
@@ -179,4 +162,16 @@ variable "argo_namespace" {
   type        = string
   default     = "argo"
   description = "Namespace to deploy ArgoCD application CRD to"
+}
+
+variable "argo_kubernetes_manifest_field_manager_name" {
+  type        = string
+  default     = "Terraform"
+  description = "The name of the field manager to use when applying the kubernetes manifest resource. Defaults to Terraform"
+}
+
+variable "argo_kubernetes_manifest_field_manager_force_conflicts" {
+  type        = bool
+  default     = false
+  description = "Forcibly override any field manager conflicts when applying the kubernetes manifest resource"
 }

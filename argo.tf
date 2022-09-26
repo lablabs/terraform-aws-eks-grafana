@@ -42,6 +42,7 @@ resource "helm_release" "argocd_application" {
 
 resource "kubernetes_manifest" "this" {
   count = var.enabled && var.argo_application_enabled && !var.argo_application_use_helm ? 1 : 0
+
   manifest = {
     "apiVersion" = "argoproj.io/v1alpha1"
     "kind"       = "Application"
@@ -50,5 +51,10 @@ resource "kubernetes_manifest" "this" {
       "namespace" = var.argo_namespace
     }
     "spec" = local.argo_application_values
+  }
+
+  field_manager {
+    name            = var.argo_kubernetes_manifest_field_manager_name
+    force_conflicts = var.argo_kubernetes_manifest_field_manager_force_conflicts
   }
 }
