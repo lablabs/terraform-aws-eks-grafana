@@ -1,6 +1,6 @@
 locals {
   grafana_admin_user_key     = "admin-user"
-  grafana_admin_password_key = "admin-password" #pragma: allowlist secret`
+  grafana_admin_password_key = "admin-password" #pragma: allowlist secret
 }
 
 resource "kubernetes_namespace" "grafana" {
