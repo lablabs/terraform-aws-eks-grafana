@@ -6,13 +6,13 @@ terraform {
       source  = "hashicorp/aws"
       version = ">= 4.19"
     }
-    helm = {
-      source  = "hashicorp/helm"
-      version = ">= 2.6"
-    }
     kubernetes = {
       source  = "hashicorp/kubernetes"
-      version = ">= 2.11"
+      version = ">= 2.11.0"
+    }
+    helm = {
+      source  = "hashicorp/helm"
+      version = ">= 2.6.0"
     }
     utils = {
       source  = "cloudposse/utils"

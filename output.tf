@@ -5,15 +5,26 @@ output "helm_release_metadata" {
 
 output "helm_release_application_metadata" {
   description = "Argo application helm release attributes"
-  value       = try(helm_release.argocd_application[0].metadata, {})
+  value       = try(helm_release.argo_application[0].metadata, {})
 }
 
 output "kubernetes_application_attributes" {
   description = "Argo kubernetes manifest attributes"
-  value       = try(kubernetes_manifest.this[0], {})
+  value       = try(kubernetes_manifest.this, {})
 }
 
-output "iam_roles_attributes" {
-  description = "Map of the IAM role atributes where key is component name"
-  value       = try(aws_iam_role.this, {})
+output "iam_role_attributes" {
+  description = "Grafana IAM role atributes"
+  value       = try(aws_iam_role.this[0], {})
+}
+
+output "grafana_admin_user" {
+  description = "Grafana admin user"
+  value       = var.grafana_admin_user
+}
+
+output "grafana_admin_password" {
+  description = "Grafana admin user password"
+  value       = var.grafana_admin_password != null ? var.grafana_admin_password : random_password.admin_password[0].result
+  sensitive   = true
 }
