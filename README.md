@@ -1,51 +1,49 @@
-# Grafana Terraform module
+# AWS EKS Grafana Terraform module
 
 [![labyrinth labs logo](ll-logo.png)](https://lablabs.io/)
 
-We help companies build, run, deploy and scale software and infrastructure by embracing the right technologies and principles. Check out our website at https://lablabs.io/
+We help companies build, run, deploy and scale software and infrastructure by embracing the right technologies and principles. Check out our website at <https://lablabs.io/>
 
 ---
 
-![Terraform validation](https://github.com/lablabs/terraform-aws-eks-grafana/workflows/Terraform%20validation/badge.svg?branch=main)
-[![pre-commit](https://img.shields.io/badge/pre--commit-enabled-success?logo=pre-commit&logoColor=white)](https://github.com/pre-commit/pre-commit)
+[![Terraform validate](https://github.com/lablabs/terraform-aws-eks-grafana/actions/workflows/validate.yaml/badge.svg)](https://github.com/lablabs/terraform-aws-eks-grafana/actions/workflows/validate.yaml)
+[![pre-commit](https://github.com/lablabs/terraform-aws-grafana/actions/workflows/pre-commit.yml/badge.svg)](https://github.com/lablabs/terraform-aws-eks-grafana/actions/workflows/pre-commit.yml)
 
 ## Description
 
-A terraform module to deploy gitlab runner.
-
-This module deploys ArgoCD in two different ways:
-1. A helm release
-2. ArgoCD Application CRD
-
-When `argo_application_enabled` variable is set to true, gitlab runner is deployed as ArgoCD Application resource
+A terraform module to deploy the Grafana on Amazon EKS cluster.
 
 ## Related Projects
 
-Check out these related projects.
-- [terraform-helm-argocd](https://github.com/lablabs/terraform-helm-argocd)
-- [terraform-helm-argo-rollouts](https://github.com/lablabs/terraform-helm-argo-rollouts)
-- [terraform-aws-eks-metrics-server](https://github.com/lablabs/terraform-aws-eks-metrics-server)
-- [terraform-aws-eks-cluster-autoscaler](https://github.com/lablabs/terraform-aws-eks-cluster-autoscaler)
-- [terraform-aws-eks-external-dns](https://github.com/lablabs/terraform-aws-eks-external-dns)
-- [terraform-aws-vector-agent-log](https://github.com/lablabs/terraform-aws-eks-vector-agent-log)
-- [terraform-aws-eks-ingress-nginx](https://github.com/lablabs/terraform-aws-eks-ingress-nginx)
-- [terraform-aws-eks-prometheus-node-exporter](https://github.com/lablabs/terraform-aws-eks-prometheus-node-exporter)
-- [terraform-aws-eks-kube-state-metrics](https://github.com/lablabs/terraform-aws-eks-kube-state-metrics)
-- [terraform-aws-eks-node-problem-detector](https://github.com/lablabs/terraform-aws-eks-node-problem-detector)
-- [terraform-aws-eks-cert-manager](https://github.com/lablabs/terraform-aws-eks-cert-manager)
-- [terraform-aws-eks-load-balancer-controller](https://github.com/lablabs/terraform-aws-eks-load-balancer-controller)
+Check out other [terraform kubernetes addons](https://github.com/orgs/lablabs/repositories?q=terraform-aws-eks&type=public&language=&sort=).
 
+## Deployment methods
+
+### Helm
+Deploy helm chart by helm (default method, set `enabled = true`)
+
+### Argo kubernetes
+Deploy helm chart as argo application by kubernetes manifest (set `enabled = true` and `argo_enabled = true`)
+
+### Argo helm
+When deploying with ArgoCD application, Kubernetes terraform provider requires access to Kubernetes cluster API during plan time. This introduces potential issue when you want to deploy the cluster with this addon at the same time, during the same Terraform run.
+
+To overcome this issue, the module deploys the ArgoCD application object using the Helm provider, which does not require API access during plan. If you want to deploy the application using this workaround, you can set the `argo_helm_enabled` variable to `true`.
+
+Create helm release resource and deploy it as argo application (set `enabled = true`, `argo_enabled = true` and `argo_helm_enabled = true`)
+
+<!-- Uncomment paragraph bellow if addon contains IAM resources
+## AWS IAM resources
+
+To disable of creation IRSA role and IRSA policy, set `irsa_role_create = false` and `irsa_policy_enabled = false`, respectively -->
+
+<!-- Uncomment paragraph bellow if addon uses Role assuming
+### Role assuming
+To assume role set `irsa_assume_role_enabled = true` and specify `irsa_assume_role_arn` variable -->
 
 ## Examples
 
 See [Basic example](examples/basic/README.md) for further information.
-
-## Potential issues with running terraform plan
-
-When deploying with ArgoCD application, Kubernetes terraform provider requires access to Kubernetes cluster API during plan time. This introduces potential issue when you want to deploy the cluster with this addon at the same time, during the same Terraform run.
-
-To overcome this issue, the module deploys the ArgoCD application object using the Helm provider, which does not require API access during plan. If you want to deploy the application using this workaround, you can set the `argo_application_use_helm` variable to `true`.
-
 
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
@@ -165,10 +163,6 @@ No modules.
 | <a name="output_kubernetes_application_attributes"></a> [kubernetes\_application\_attributes](#output\_kubernetes\_application\_attributes) | Argo kubernetes manifest attributes |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 
-## Secrets
-
-The Module is able read the secret for Grafana Database and for the Grafana Dashboards private repository from the AWS Secrets manager (ASM). With variables `grafana_dashboards_repo_secret` and `grafana_database_secret` you can specify the name of ASM secret.
-
 ## Contributing and reporting issues
 
 Feel free to create an issue in this repository if you have questions, suggestions or feature requests.
@@ -177,13 +171,12 @@ Feel free to create an issue in this repository if you have questions, suggestio
 
 We want to provide high quality code and modules. For this reason we are using
 several [pre-commit hooks](.pre-commit-config.yaml) and
-[GitHub Actions workflow](.github/workflows/main.yml). A pull-request to the
-master branch will trigger these validations and lints automatically. Please
+[GitHub Actions workflows](.github/workflows/). A pull-request to the
+main branch will trigger these validations and lints automatically. Please
 check your code before you will create pull-requests. See
 [pre-commit documentation](https://pre-commit.com/) and
 [GitHub Actions documentation](https://docs.github.com/en/actions) for further
 details.
-
 
 ## License
 
