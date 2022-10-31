@@ -406,9 +406,3 @@ variable "grafana_admin_password" {
   default     = null
   description = "Password for the Grafana admin user. If not set, a random password will be generated."
 }
-
-variable "grafana_release" {
-  type        = string
-  default     = ""
-  description = "Name of the Grafana release"
-}

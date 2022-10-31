@@ -1,9 +1,5 @@
 locals {
   values_default = yamlencode({
-    image = {
-      tag = var.grafana_release
-    }
-
     rbac = {
       create = var.rbac_create
     }

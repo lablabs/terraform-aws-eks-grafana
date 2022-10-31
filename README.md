@@ -102,7 +102,6 @@ No modules.
 | <a name="input_enabled"></a> [enabled](#input\_enabled) | Variable indicating whether deployment is enabled | `bool` | `true` | no |
 | <a name="input_grafana_admin_password"></a> [grafana\_admin\_password](#input\_grafana\_admin\_password) | Password for the Grafana admin user. If not set, a random password will be generated. | `string` | `null` | no |
 | <a name="input_grafana_admin_user"></a> [grafana\_admin\_user](#input\_grafana\_admin\_user) | Name of the Grafana admin user | `string` | `"admin"` | no |
-| <a name="input_grafana_release"></a> [grafana\_release](#input\_grafana\_release) | Name of the Grafana release | `string` | `""` | no |
 | <a name="input_helm_atomic"></a> [helm\_atomic](#input\_helm\_atomic) | If set, installation process purges chart on fail. The wait flag will be set automatically if atomic is used | `bool` | `false` | no |
 | <a name="input_helm_chart_name"></a> [helm\_chart\_name](#input\_helm\_chart\_name) | Helm chart name to be installed | `string` | `"grafana"` | no |
 | <a name="input_helm_chart_version"></a> [helm\_chart\_version](#input\_helm\_chart\_version) | Version of the Helm chart | `string` | `"6.42.2"` | no |
