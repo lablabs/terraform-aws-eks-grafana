@@ -1,12 +1,35 @@
-resource "aws_iam_role_policy_attachment" "this" {
-  for_each = local.k8s_irsa_role_create ? var.k8s_irsa_additional_policies : {}
+locals {
+  irsa_role_create = var.enabled && var.rbac_create && var.service_account_create && var.irsa_role_create
+}
 
-  role       = aws_iam_role.this[0].name
-  policy_arn = each.value
+data "aws_iam_policy_document" "this_assume" {
+  count = local.irsa_role_create && var.irsa_assume_role_enabled ? 1 : 0
+
+  statement {
+    sid    = "AllowAssumeGrafanaRole"
+    effect = "Allow"
+    actions = [
+      "sts:AssumeRole"
+    ]
+    resources = [
+      var.irsa_assume_role_arn
+    ]
+  }
+}
+
+resource "aws_iam_policy" "this" {
+  count = local.irsa_role_create && var.irsa_assume_role_enabled ? 1 : 0
+
+  name        = "${var.irsa_role_name_prefix}-${var.helm_chart_name}"
+  path        = "/"
+  description = "Policy for Grafana service"
+  policy      = data.aws_iam_policy_document.this_assume[0].json
+
+  tags = var.irsa_tags
 }
 
 data "aws_iam_policy_document" "this_irsa" {
-  count = local.k8s_irsa_role_create ? 1 : 0
+  count = local.irsa_role_create ? 1 : 0
 
   statement {
     actions = ["sts:AssumeRoleWithWebIdentity"]
@@ -21,7 +44,7 @@ data "aws_iam_policy_document" "this_irsa" {
       variable = "${replace(var.cluster_identity_oidc_issuer, "https://", "")}:sub"
 
       values = [
-        "system:serviceaccount:${var.k8s_namespace}:${local.k8s_service_account_name}",
+        "system:serviceaccount:${var.namespace}:${var.service_account_name}",
       ]
     }
 
@@ -30,8 +53,23 @@ data "aws_iam_policy_document" "this_irsa" {
 }
 
 resource "aws_iam_role" "this" {
-  count = local.k8s_irsa_role_create ? 1 : 0
+  count = local.irsa_role_create ? 1 : 0
 
-  name               = "${var.k8s_irsa_role_name_prefix}-${var.helm_chart_name}"
+  name               = "${var.irsa_role_name_prefix}-${var.helm_chart_name}"
   assume_role_policy = data.aws_iam_policy_document.this_irsa[0].json
+  tags               = var.irsa_tags
+}
+
+resource "aws_iam_role_policy_attachment" "this" {
+  count = local.irsa_role_create && var.irsa_assume_role_enabled ? 1 : 0
+
+  role       = aws_iam_role.this[0].name
+  policy_arn = aws_iam_policy.this[0].arn
+}
+
+resource "aws_iam_role_policy_attachment" "this_additional" {
+  for_each = local.irsa_role_create ? var.irsa_additional_policies : {}
+
+  role       = aws_iam_role.this[0].name
+  policy_arn = each.value
 }
