@@ -3,10 +3,11 @@
 [<img src="https://lablabs.io/static/ll-logo.png" width=350px>](https://lablabs.io/)
 
 We help companies build, run, deploy and scale software and infrastructure by embracing the right technologies and principles. Check out our website at <https://lablabs.io/>
+
 ---
 
 [![Terraform validate](https://github.com/lablabs/terraform-aws-eks-grafana/actions/workflows/validate.yaml/badge.svg)](https://github.com/lablabs/terraform-aws-eks-grafana/actions/workflows/validate.yaml)
-[![pre-commit](https://github.com/lablabs/terraform-aws-grafana/actions/workflows/pre-commit.yml/badge.svg)](https://github.com/lablabs/terraform-aws-eks-grafana/actions/workflows/pre-commit.yml)
+[![pre-commit](https://github.com/lablabs/terraform-aws-eks-grafana/actions/workflows/pre-commit.yml/badge.svg)](https://github.com/lablabs/terraform-aws-eks-grafana/actions/workflows/pre-commit.yml)
 
 ## Description
 
