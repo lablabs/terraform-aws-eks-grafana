@@ -1,6 +1,6 @@
 module "vpc" {
   source  = "terraform-aws-modules/vpc/aws"
-  version = "3.14.2"
+  version = "4.0.0"
 
   name               = "cluster-autoscaler-vpc"
   cidr               = "10.0.0.0/16"

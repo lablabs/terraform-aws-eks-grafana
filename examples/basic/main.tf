@@ -7,7 +7,6 @@ module "addon_installation_disabled" {
   cluster_identity_oidc_issuer_arn = module.eks_cluster.eks_cluster_identity_oidc_issuer_arn
 }
 
-# Please, see README.md and Argo Kubernetes deployment method for implications of using Kubernetes installation method
 module "addon_installation_helm" {
   source = "../../"
 
@@ -23,6 +22,7 @@ module "addon_installation_helm" {
   })
 }
 
+# Please, see README.md and Argo Kubernetes deployment method for implications of using Kubernetes installation method
 module "addon_installation_argo_kubernetes" {
   source = "../../"
 
@@ -42,6 +42,7 @@ module "addon_installation_argo_kubernetes" {
     "syncOptions" = ["CreateNamespace=true"]
   }
 }
+
 
 module "addon_installation_argo_helm" {
   source = "../../"
