@@ -1,10 +1,11 @@
+# IMPORTANT: This file is synced with the "terraform-aws-eks-universal-addon" module. Any changes to this file might be overwritten upon the next release of that module.
 terraform {
-  required_version = ">= 1.0"
+  required_version = ">= 1.5.0"
 
   required_providers {
     aws = {
       source  = "hashicorp/aws"
-      version = ">= 4.35.0"
+      version = "~> 5"
     }
     kubernetes = {
       source  = "hashicorp/kubernetes"
@@ -17,10 +18,6 @@ terraform {
     utils = {
       source  = "cloudposse/utils"
       version = ">= 0.17.0"
-    }
-    random = {
-      source  = "hashicorp/random"
-      version = ">= 3.0"
     }
   }
 }
