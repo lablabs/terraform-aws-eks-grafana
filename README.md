@@ -166,6 +166,8 @@ See [basic example](examples/basic) for further information.
 |------|-------------|
 | <a name="output_addon"></a> [addon](#output\_addon) | The addon module outputs |
 | <a name="output_addon_irsa"></a> [addon\_irsa](#output\_addon\_irsa) | The addon IRSA module outputs |
+| <a name="output_grafana_admin_password"></a> [grafana\_admin\_password](#output\_grafana\_admin\_password) | Grafana admin user password |
+| <a name="output_grafana_admin_user"></a> [grafana\_admin\_user](#output\_grafana\_admin\_user) | Grafana admin user |
 ## Contributing and reporting issues
 
 Feel free to create an issue in this repository if you have questions, suggestions or feature requests.
