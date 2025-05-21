@@ -39,4 +39,6 @@ locals {
       passwordKey    = local.grafana_admin_password_key
     }
   })
+
+  addon_depends_on = []
 }
