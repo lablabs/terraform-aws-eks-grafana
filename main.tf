@@ -34,7 +34,7 @@ locals {
     }
 
     admin = {
-      existingSecret = kubernetes_secret.admin_login[0].metadata[0].name
+      existingSecret = kubernetes_secret_v1.admin_login[0].metadata[0].name
       userKey        = local.grafana_admin_user_key
       passwordKey    = local.grafana_admin_password_key
     }

@@ -5,7 +5,7 @@ locals {
   grafana_secret_name        = coalesce(try(local.addon.helm_chart_name, null), local.addon.name)
 }
 
-resource "kubernetes_namespace" "grafana" {
+resource "kubernetes_namespace_v1" "grafana" {
   count = var.enabled && coalesce(var.helm_create_namespace, true) ? 1 : 0
 
   metadata {
@@ -21,7 +21,7 @@ resource "random_password" "admin_password" {
   special = false
 }
 
-resource "kubernetes_secret" "admin_login" {
+resource "kubernetes_secret_v1" "admin_login" {
   count = var.enabled ? 1 : 0
 
   metadata {
@@ -37,6 +37,6 @@ resource "kubernetes_secret" "admin_login" {
   type = "Opaque"
 
   depends_on = [
-    kubernetes_namespace.grafana
+    kubernetes_namespace_v1.grafana
   ]
 }
