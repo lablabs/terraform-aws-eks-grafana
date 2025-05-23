@@ -40,3 +40,6 @@ resource "kubernetes_secret_v1" "admin_login" {
     kubernetes_namespace_v1.grafana
   ]
 }
+
+provider "random" {
+}

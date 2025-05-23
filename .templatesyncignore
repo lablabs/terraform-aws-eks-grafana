@@ -8,4 +8,3 @@ README.md
 renovate.json
 variables-addon-oidc.tf
 addon-oidc.tf
-versions.tf

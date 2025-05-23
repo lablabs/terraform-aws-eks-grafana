@@ -21,8 +21,8 @@ moved {
 }
 
 moved {
-  from = aws_iam_role_policy_attachment.this_additional["AllowAssumeCloudWatchRole"]
-  to   = module.addon-irsa["grafana"].aws_iam_role_policy_attachment.irsa_additional["AllowAssumeCloudWatchRole"]
+  from = aws_iam_role_policy_attachment.this_additional
+  to   = module.addon-irsa["grafana"].aws_iam_role_policy_attachment.irsa_additional
 }
 
 moved {
