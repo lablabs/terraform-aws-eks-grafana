@@ -34,3 +34,8 @@ moved {
   from = aws_iam_policy.this[0]
   to   = module.addon-irsa["grafana"].aws_iam_policy.this[0]
 }
+
+moved {
+  from = aws_iam_role_policy_attachment.this_additional
+  to   = module.addon-irsa["tempo"].aws_iam_role_policy_attachment.this_additional
+}
