@@ -40,5 +40,5 @@ locals {
     }
   })
 
-  addon_depends_on = []
+  addon_depends_on = [kubernetes_namespace_v1.grafana]
 }
