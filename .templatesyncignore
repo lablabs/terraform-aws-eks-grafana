@@ -9,3 +9,4 @@ renovate.json
 variables-addon-oidc.tf
 addon-oidc.tf
 versions.tf
+.terraform.lock.hcl

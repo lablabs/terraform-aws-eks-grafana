@@ -10,6 +10,7 @@ variable "grafana_admin_user" {
   type        = string
   default     = "admin"
   description = "Name of the Grafana admin user"
+  nullable    = false
 }
 
 variable "grafana_admin_password" {
