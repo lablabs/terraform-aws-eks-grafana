@@ -10,8 +10,8 @@ locals {
   addon = {
     name = "grafana"
 
-    helm_chart_version = "6.43.5"
-    helm_repo_url      = "https://grafana.github.io/helm-charts"
+    helm_chart_version = "11.3.6"
+    helm_repo_url      = "https://grafana-community.github.io/helm-charts"
   }
 
   addon_irsa = {
