@@ -1,0 +1,7 @@
+migrations.tf
+outputs.tf
+secrets.tf
+.terraform.lock.hcl
+addon-oidc.tf
+variables-addon-oidc.tf
+versions.tf
