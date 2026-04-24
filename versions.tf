@@ -1,3 +1,4 @@
+# IMPORTANT: This file is synced with the "terraform-aws-eks-universal-addon" template. Any changes to this file might be overwritten upon the next release of the template.
 terraform {
   required_version = ">= 1.8"
 
@@ -20,7 +21,7 @@ terraform {
     }
     random = {
       source  = "hashicorp/random"
-      version = ">= 3.0"
+      version = ">= 3"
     }
   }
 }

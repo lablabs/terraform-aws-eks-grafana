@@ -50,7 +50,7 @@ See [basic example](examples/basic) for further information.
 | <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 5 |
 | <a name="requirement_helm"></a> [helm](#requirement\_helm) | >= 3 |
 | <a name="requirement_kubernetes"></a> [kubernetes](#requirement\_kubernetes) | >= 2.20 |
-| <a name="requirement_random"></a> [random](#requirement\_random) | >= 3.0 |
+| <a name="requirement_random"></a> [random](#requirement\_random) | >= 3 |
 | <a name="requirement_utils"></a> [utils](#requirement\_utils) | >= 1 |
 
 ## Modules
